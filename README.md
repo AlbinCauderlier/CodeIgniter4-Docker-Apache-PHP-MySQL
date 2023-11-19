@@ -14,25 +14,27 @@ Step 2 - https://avenir.ro/codeigniter-4/xinstall-codeigniter-in-docker-containe
 
 2. On a terminal at the path of the repository:
 
-'''
+```
 docker-compose up -d
-'''
+```
 
 List of the running containers, in order to catch the <name_of_the_web_container>
-'''
+
+```
 docker ps 
-'''
+```
 
 Let's go in the web container
-'''
+
+```
 docker exec -it <name_of_the_web_container> bash
-'''
+```
 
-'''
+In the container terminal:
+```
 composer create-project codeigniter4/appstarter
-
 exit
-'''
+```
 
 3. Controls 
 
