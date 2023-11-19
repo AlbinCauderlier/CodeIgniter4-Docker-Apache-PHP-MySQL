@@ -1,6 +1,7 @@
-FROM php:7.4-apache
+FROM php:8.2-apache
+
 RUN echo "ServerName localhost" >> /etc/apache2/apache2.conf
-RUN apt-get update
+RUN apt-get update && apt-get upgrade -y
 RUN apt-get install -y \
     git \
     zip \
@@ -23,13 +24,18 @@ RUN docker-php-ext-install \
     opcache \
     calendar \
     pdo_mysql \
-    mysqli
+    mysqli     \
+    gd          \
+    exif
+
 
 # 2. set up document root for apache
 COPY docker/apache/000-default.conf /etc/apache2/sites-available/000-default.conf
 
 # 3. mod_rewrite for URL rewrite and mod_headers for .htaccess extra headers like Access-Control-Allow-Origin-
 RUN a2enmod rewrite headers
+
+WORKDIR /var/www/html
 
 # 4. start with base php config, then add extensions
 RUN mv "$PHP_INI_DIR/php.ini-development" "$PHP_INI_DIR/php.ini"

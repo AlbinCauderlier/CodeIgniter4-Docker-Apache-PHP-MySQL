@@ -1,4 +1,4 @@
-version: '3'
+version: '3.8'
 services:
     db:
         build:
@@ -24,7 +24,7 @@ services:
             - APACHE_RUN_GROUP=#${UID}
         restart: unless-stopped
         volumes: 
-            - ./src:/var/www/html
+            - ./src/appstarter:/var/www/html
             - ./apache_log:/var/log/apache2
         ports:
             - 80:80
@@ -32,11 +32,6 @@ services:
             - db
         links:
             - db
-    adminer:
-        image: adminer
-        restart: unless-stopped
-        ports:
-            - 8080:8080
 volumes:
     db_data:
     src:
